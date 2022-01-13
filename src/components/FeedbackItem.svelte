@@ -1,13 +1,13 @@
 <script>
+  import { FeedbackStore } from "../stores/FeedbackStore";
   import Card from "./Card.svelte";
-  import { createEventDispatcher } from "svelte";
   export let feedback;
 
   // Create custom event object using createEventDispatcher
-  const dispatch = createEventDispatcher();
   const handleDeleteFeedback = (feedbackId) => {
-    // Create custom event called delete-feedback, and also set feedbackId as the props
-    dispatch("delete-feedback", feedbackId);
+    FeedbackStore.update((currentFeedback) => {
+      return currentFeedback.filter((item) => item.id != feedbackId);
+    });
   };
 </script>
 

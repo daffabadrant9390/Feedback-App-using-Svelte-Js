@@ -1,6 +1,13 @@
 <script>
-  export let feedbackCount;
-  export let ratingAvg;
+  import { FeedbackStore } from "../stores/FeedbackStore";
+
+  $: feedbackCount = $FeedbackStore.length;
+  $: ratingAvg = (
+    $FeedbackStore.reduce(
+      (accumulator, { rating }) => accumulator + rating,
+      0
+    ) / $FeedbackStore.length
+  ).toFixed(1);
 </script>
 
 <div class="feedback-stats">
